@@ -1,5 +1,5 @@
 {
-  "name": "api-for-madzia-portfolio",
+  "name": "api-for-portfolio",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -9,18 +9,18 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
-    "@strapi/strapi": "4.13.6",
-    "@strapi/plugin-users-permissions": "4.13.6",
-    "@strapi/plugin-i18n": "4.13.6",
+    "@strapi/plugin-i18n": "4.14.0-alpha.0",
+    "@strapi/plugin-users-permissions": "4.14.0-alpha.0",
+    "@strapi/provider-upload-local": "^4.14.0-alpha.0",
+    "@strapi/strapi": "4.14.0-alpha.0",
     "pg": "8.8.0"
   },
   "author": {
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "cf94f105-93bf-4e58-948d-2f000fec0c3e"
+    "uuid": "855a15cb-63eb-4686-b0a1-c2c1b4e5837f"
   },
   "engines": {
     "node": ">=16.0.0 <=20.x.x",
