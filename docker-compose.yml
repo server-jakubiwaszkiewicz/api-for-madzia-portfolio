@@ -1,7 +1,7 @@
 version: "3"
 services:
-  strapi:
-    container_name: strapi
+  strapimagda:
+    container_name: strapimagda
     build: .
     image: strapi:latest
     restart: unless-stopped
@@ -27,7 +27,7 @@ services:
     ports:
       - "3003:3003"
     networks:
-      - strapi
+      - strapimagda
     depends_on:
       - strapiDBmagda
 
@@ -43,15 +43,15 @@ services:
     volumes:
       - strapi-data:/var/lib/postgresql/data/ #using a volume
       #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
-
     ports:
       - "5433:5433"
     networks:
+      - strapimagda
 
 volumes:
   strapi-data:
 
 networks:
-  strapi:
-    name: Strapi
+  strapimagda:
+    name: Strapimagda
     driver: bridge
