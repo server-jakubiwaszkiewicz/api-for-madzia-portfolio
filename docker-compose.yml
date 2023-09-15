@@ -27,12 +27,12 @@ services:
     ports:
       - "3003:3003"
     networks:
-      - strapi1
+      - strapi
     depends_on:
-      - strapiDB1
+      - strapiDB
 
   strapiDB:
-    container_name: strapiDB1
+    container_name: strapiDB
     restart: unless-stopped
     env_file: .env
     image: postgres:12.0-alpine
@@ -47,7 +47,7 @@ services:
     ports:
       - "5433:5433"
     networks:
-      - strapi1
+      - strapi
 
 volumes:
   strapi-data:
