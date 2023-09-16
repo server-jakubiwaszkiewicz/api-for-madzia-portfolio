@@ -4,7 +4,7 @@ services:
     container_name: strapi2
     build:
       context: .
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     restart: unless-stopped
     env_file: .env
     environment:
