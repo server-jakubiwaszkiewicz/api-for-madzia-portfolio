@@ -3,7 +3,7 @@ services:
   strapimagda:
     container_name: strapimagda
     build: .
-    image: strapi:3.6.8
+    image: strapi:latest
     restart: unless-stopped
     env_file: .env
     environment:
@@ -25,7 +25,7 @@ services:
       - ./.env:/opt/app/.env
       - ./public/uploads:/opt/app/public/uploads
     ports:
-      - "3003:3003"
+      - "3001:3003"
     networks:
       - strapimagda
     depends_on:
@@ -35,7 +35,7 @@ services:
     container_name: strapiDBmagda
     restart: unless-stopped
     env_file: .env
-    image: postgres:12.1-alpine
+    image: postgres:12.0-alpine
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -44,7 +44,7 @@ services:
       - strapi-data:/var/lib/postgresql/data/ #using a volume
       #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
     ports:
-      - "5433:5433"
+      - "5433:5432"
     networks:
       - strapimagda
 
