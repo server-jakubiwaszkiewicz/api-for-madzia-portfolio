@@ -1,16 +1,19 @@
-FROM node:18-alpine
-# Installing libvips-dev for sharp Compatibility
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
+# Use the official Strapi image as the base image
+FROM strapi/strapi:latest
 
-WORKDIR /opt/
-COPY package.json package-lock.json ./
-RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
-ENV PATH /opt/node_modules/.bin:$PATH
+# Set the working directory inside the container
+WORKDIR /usr/src/api
 
-WORKDIR /opt/app
+# Copy your Strapi application code to the container
 COPY . .
-RUN ["npm", "run", "build"]
-EXPOSE 3003
-CMD ["npm", "run", "develop"]
+
+# Install any additional dependencies required for building
+RUN apk --no-cache add git python3 build-base
+
+# Build your Strapi application
+RUN npm install
+RUN npm run build
+
+# Expose the port your Strapi app will run on
+EXPOSE 3003 
+# Change the port to avoid collisions

@@ -1,38 +1,40 @@
 version: "3"
 services:
-  strapimagda:
-    container_name: strapimagda
-    build: .
-    image: strapi:latest
+  strapi2:
+    container_name: strapi2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: strapi:custom2  
     restart: unless-stopped
     env_file: .env
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
-      DATABASE_HOST: strapiDBmagda
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      JWT_SECRET: ${JWT_SECRET}
-      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      DATABASE_HOST: strapiDB2  
+      DATABASE_PORT: ${DATABASE_PORT} 
+      DATABASE_NAME: ${DATABASE_NAME} 
+      DATABASE_USERNAME: ${DATABASE_USERNAME} 
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD} 
+      JWT_SECRET: ${JWT_SECRET}  
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET} 
       APP_KEYS: ${APP_KEYS}
       NODE_ENV: ${NODE_ENV}
     volumes:
-      - ./config:/opt/app/config
-      - ./src:/opt/app/src
-      - ./package.json:/opt/package.json
-      - ./yarn.lock:/opt/yarn.lock
-      - ./.env:/opt/app/.env
-      - ./public/uploads:/opt/app/public/uploads
+      - ./config:/usr/src/api/config
+      - ./src:/usr/src/api/src
+      - ./package.json:/usr/src/api/package.json
+      - ./yarn.lock:/usr/src/api/yarn.lock
+      - ./.env:/usr/src/api/.env
+      - ./public/uploads:/usr/src/api/public/uploads
     ports:
-      - "3003:3001"
+      - "3003:3003"
     networks:
-      - strapimagda
+      - strapi2
     depends_on:
-      - strapiDBmagda
+      - strapiDB2
 
-  strapiDBmagda:
-    container_name: strapiDBmagda
+  strapiDB2:
+    container_name: strapiDB2
     restart: unless-stopped
     env_file: .env
     image: postgres:12.0-alpine
@@ -41,17 +43,16 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
-      - strapi-data:/var/lib/postgresql/data/ #using a volume
-      #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
+      - strapi-data2:/var/lib/postgresql/data/
     ports:
-      - "5433:5432"
+      - "5433:5433"
     networks:
-      - strapimagda
+      - strapi2
 
 volumes:
-  strapi-data:
+  strapi-data2:
 
 networks:
-  strapimagda:
-    name: Strapimagda
+  strapi2:
+    name: Strapi2
     driver: bridge
